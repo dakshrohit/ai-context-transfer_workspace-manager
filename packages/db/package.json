@@ -6,7 +6,7 @@
   "author": "dakshh",
    "private": true,
   "main": "./src/index.ts",
-  "type": "commonjs",
+  "type": "module",
   
   "exports": {
     ".": "./src/index.ts"

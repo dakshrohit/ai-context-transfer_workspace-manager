@@ -1,1 +1,2 @@
 export * from "./graph/workspace.graph";
+export * from "./services/chat.service";
