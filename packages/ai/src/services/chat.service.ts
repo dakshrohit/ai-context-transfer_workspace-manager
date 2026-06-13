@@ -10,24 +10,41 @@ export class ChatService {
 
   private messageRepo =
     new MessageRepository();
-    async getMessages(
-  conversationId: string
-) {
-  return this.messageRepo
-    .findByConversationId(
+
+  async getMessages(
+    conversationId: string
+  ) {
+    return this.messageRepo.findByConversationId(
       conversationId
     );
-}
-async getConversations(
-  userId: string
-) {
-  return this.conversationRepo
-    .findByUserId(userId);
-}
+  }
+
+  async getConversations(
+    userId: string
+  ) {
+    return this.conversationRepo.findByUserId(
+      userId
+    );
+  }
+
   async chat(
     conversationId: string,
     message: string
   ) {
+    const existingMessages =
+      await this.messageRepo.findByConversationId(
+        conversationId
+      );
+
+    if (
+      existingMessages.length === 0
+    ) {
+      await this.conversationRepo.updateTitle(
+        conversationId,
+        message.slice(0, 50)
+      );
+    }
+
     await this.messageRepo.create({
       conversationId,
       role: "USER",

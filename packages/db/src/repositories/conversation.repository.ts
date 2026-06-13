@@ -34,4 +34,24 @@ export class ConversationRepository {
     },
   });
 }
+
+async findAll() {
+  return prisma.conversation.findMany({
+    orderBy: {
+      updatedAt: "desc",
+    },
+  });
+}
+
+async updateTitle(
+  id: string,
+  title: string
+) {
+  return prisma.conversation.update({
+    where: { id },
+    data: { title },
+  });
+}
+
+
 }
